@@ -145,6 +145,7 @@ public class ControllerExceptionHandler {
         Assert.notNull(t, "Throwable must not be null");
         log.error("request.getRequestURL:{}",request.getRequestURL().toString());
         log.error("Captured an exception", t);
+        t.printStackTrace();
 
         ModelAndView modelAndView;
         if(!isAjaxRequest(request)){
