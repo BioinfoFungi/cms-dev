@@ -449,6 +449,12 @@ public abstract class AbstractCrudService<DOMAIN extends BaseEntity,DETAILVO,DOM
     private List<DOMAINVO> getChildList(DOMAINVO domainvo, List<DOMAINVO> list) {
         return list.stream()
                 //筛选出父节点id == parentId 的所有对象 => list
+                .peek(o-> {
+                            if(o.getParentId()==null){
+                                o.setParentId(0);
+
+                            }
+                })
                 .filter(o -> o.getParentId().equals(domainvo.getId()))
                 .peek(o -> o.setChildren(getChildList(o, list)))
                 .sorted(Comparator.comparing(DOMAINVO::getOrder))
